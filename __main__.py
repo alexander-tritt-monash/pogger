@@ -8,10 +8,13 @@ pogger = Pogger()
 @pogger.record(("arange", "string"), ("T", None))
 def test():
     test = np.arange(0, 10)
-    plt.figure(label="hello")
+    plt.figure(label="lmao")
     plt.plot(-test)
     plt.draw()
     return test, "hello"
 
 
+pogger.set_context("hello")
+test()
+pogger.set_context("world")
 test()
