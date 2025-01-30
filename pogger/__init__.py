@@ -64,8 +64,8 @@ class Pogger():
         if not os.path.exists(self._path_dir):
             os.makedirs(self._path_dir)
 
-    def record(self, result_names, result_units=None):
-        def write_result(result, result_name, result_unit=None):
+    def record(self, result_names=None, result_units=None):
+        def write_result(result=None, result_name=None, result_unit=None):
             if result is None:
                 return
             elif type(result) is tuple:
