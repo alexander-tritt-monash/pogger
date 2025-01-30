@@ -12,6 +12,7 @@ def test():
     plt.plot(-test)
     plt.draw()
     print("LMAOOOOO")
+    raise Exception("RIP")
     return test, "hello"
 
 

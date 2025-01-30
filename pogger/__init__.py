@@ -42,7 +42,9 @@ class Pogger():
 
     def record(self, result_names, result_units=None):
         def write_result(result, result_name, result_unit=None):
-            if type(result) is tuple:
+            if result is None:
+                return
+            elif type(result) is tuple:
                 for result_index, result_value in enumerate(result):
                     result_name_value = result_name[result_index]
                     if result_unit is None:
@@ -62,23 +64,28 @@ class Pogger():
 
         def wrapper(function: callable):
             def wrapped(*arguments, **keyword_arguments):
-                results = function(*arguments, **keyword_arguments)
-                write_result(results, result_names, result_units)
+                try:
+                    results = function(*arguments, **keyword_arguments)
+                except Exception as exception:
+                    results = None
+                    raise exception
+                finally:
+                    write_result(results, result_names, result_units)
 
-                figure_numbers = plt.get_fignums()
-                figure_labels = plt.get_figlabels()
-                for figure_number, figure_label in \
-                        zip(figure_numbers, figure_labels):
-                    if figure_number not in self._plotted_figures:
-                        plt.figure(figure_number)
-                        plt.savefig(
-                            self._figure_path
-                            + self.get_context().replace("/", "_")
-                            + "_" + figure_label + ".png")
-                        plt.savefig(
-                            self._figure_path
-                            + self.get_context().replace("/", "_")
-                            + "_" + figure_label + ".pdf")
+                    figure_numbers = plt.get_fignums()
+                    figure_labels = plt.get_figlabels()
+                    for figure_number, figure_label in \
+                            zip(figure_numbers, figure_labels):
+                        if figure_number not in self._plotted_figures:
+                            plt.figure(figure_number)
+                            plt.savefig(
+                                self._figure_path
+                                + self.get_context().replace("/", "_")
+                                + "_" + figure_label + ".png")
+                            plt.savefig(
+                                self._figure_path
+                                + self.get_context().replace("/", "_")
+                                + "_" + figure_label + ".pdf")
                 return results
             return wrapped
         return wrapper
@@ -102,9 +109,11 @@ class Pogger():
 
     def _initialise_printer(self):
         self._normal_out = sys.stdout
+        self._normal_error_out = sys.stderr
         self._log_out_path = self._path_full + ".log"
         self._printer = Printer(self._normal_out, self._log_out_path)
         sys.stdout = self._printer
+        sys.stderr = self._printer
 
     def set_context(self, context=None):
         if context is None:
@@ -164,3 +173,5 @@ class Printer:
 
     def flush(self, *arguments, **keyword_arguments):
         self._normal_out.flush(*arguments, **keyword_arguments)
+        with open(self._log_out_path, "a") as log_file:
+            log_file.flush(*arguments, **keyword_arguments)
