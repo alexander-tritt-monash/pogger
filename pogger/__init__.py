@@ -1,5 +1,7 @@
 import os
 import sys
+import configparser
+
 import h5py
 import datetime as dt
 import numpy as np
@@ -20,6 +22,24 @@ class Pogger():
             print("Logging initialised")
 
     def _initialise_paths(self):
+        # Read user config file to get archive path
+        if self._path is None:
+            self._config_path_dir = os.path.expanduser("~")
+            self._config_path_dir += "/.config/pogger/"
+            if not os.path.exists(self._config_path_dir):
+                os.makedirs(self._config_path_dir)
+            self._config_path = self._config_path_dir + "pogger.conf"
+            if os.path.exists(self._config_path):
+                config = configparser.ConfigParser()
+                config.read(self._config_path)
+                if "path" in config:
+                    if "archive" in config["path"]:
+                        self._path = \
+                            os.path.expanduser(config["path"]["archive"])
+                        if self._path[-1] != "/":
+                            self._path += "/"
+
+        # If config isn't there, then set a default path
         if self._path is None:
             self._path = os.path.expanduser("~")
             self._path += "/pogger_archives/"
