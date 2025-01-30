@@ -1,4 +1,5 @@
 import os
+import sys
 import h5py
 import datetime as dt
 import numpy as np
@@ -10,6 +11,7 @@ class Pogger():
         self._path = pogger_path
         self._initialise_context()
         self._initialise_paths()
+        self._initialise_printer()
         self._initialise_h5()
         self._initialise_figures()
 
@@ -98,6 +100,12 @@ class Pogger():
     def _initialise_context(self):
         self.set_context()
 
+    def _initialise_printer(self):
+        self._normal_out = sys.stdout
+        self._log_out_path = self._path_full + ".log"
+        self._printer = Printer(self._normal_out, self._log_out_path)
+        sys.stdout = self._printer
+
     def set_context(self, context=None):
         if context is None:
             self._context = ""
@@ -140,3 +148,19 @@ class Pogger():
             print("Write failed")
             print("Path", path_full)
             print(exception)
+
+
+class Printer:
+    def __init__(self, normal_out, log_out_path: str):
+        self._normal_out = normal_out
+        self._log_out_path = log_out_path
+        with open(self._log_out_path, "w"):
+            pass
+
+    def write(self, *arguments, **keyword_arguments):
+        self._normal_out.write(*arguments, **keyword_arguments)
+        with open(self._log_out_path, "a") as log_file:
+            log_file.write(*arguments, **keyword_arguments)
+
+    def flush(self, *arguments, **keyword_arguments):
+        self._normal_out.flush(*arguments, **keyword_arguments)

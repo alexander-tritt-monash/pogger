@@ -11,6 +11,7 @@ def test():
     plt.figure(label="lmao")
     plt.plot(-test)
     plt.draw()
+    print("LMAOOOOO")
     return test, "hello"
 
 
