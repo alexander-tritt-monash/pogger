@@ -7,13 +7,17 @@ from matplotlib import pyplot as plt
 
 
 class Pogger():
-    def __init__(self, pogger_path=None):
+    def __init__(self, pogger_path=None, verbose=False):
+        self._is_verbose = verbose
         self._path = pogger_path
         self._initialise_context()
         self._initialise_paths()
         self._initialise_printer()
         self._initialise_h5()
         self._initialise_figures()
+
+        if self._is_verbose:
+            print("Logging initialised")
 
     def _initialise_paths(self):
         if self._path is None:
@@ -86,6 +90,12 @@ class Pogger():
                                 self._figure_path
                                 + self.get_context().replace("/", "_")
                                 + "_" + figure_label + ".pdf")
+                            self._plotted_figures.append(figure_number)
+                            if self._is_verbose:
+                                print(
+                                    "Figure written to",
+                                    self.get_context().replace("/", "_")
+                                    + "_" + figure_label)
                 return results
             return wrapped
         return wrapper
@@ -125,38 +135,32 @@ class Pogger():
 
     def write_array(self, path, array, units=None):
         path_full = "data/" + self._context + "/" + path
-        try:
-            path_split = path_full.split("/")
-            with h5py.File(self._path_h5, "a") as file_h5:
-                path_dir = ""
-                for dir_index in range(1, len(path_split) - 1):
-                    path_dir += path_split[dir_index] + "/"
-                    file_h5.require_group(path_dir[:-1])
+        path_split = path_full.split("/")
+        with h5py.File(self._path_h5, "a") as file_h5:
+            path_dir = ""
+            for dir_index in range(1, len(path_split) - 1):
+                path_dir += path_split[dir_index] + "/"
+                file_h5.require_group(path_dir[:-1])
 
-                file_h5[path_full] = array
-                if units is not None:
-                    file_h5[path_full].attrs["_units"] = units
-        except Exception as exception:
-            print("Write failed")
-            print("Path", path_full)
-            print(exception)
+            file_h5[path_full] = array
+            if units is not None:
+                file_h5[path_full].attrs["_units"] = units
+        if self._is_verbose:
+            print("Array written to hdf5 path", path_full)
 
     def write_value(self, path, value, units=None):
         path_full = "data/" + self._context + "/" + path
-        try:
-            path_split = path_full.split("/")
-            with h5py.File(self._path_h5, "a") as file_h5:
-                path_dir = ""
-                for dir_index in range(0, len(path_split) - 1):
-                    path_dir += path_split[dir_index] + "/"
-                    file_h5.require_group(path_dir[:-1])
-                file_h5[path_dir].attrs[path_split[-1]] = value
-                if units is not None:
-                    file_h5[path_dir].attrs[path_split[-1] + "_units"] = units
-        except Exception as exception:
-            print("Write failed")
-            print("Path", path_full)
-            print(exception)
+        path_split = path_full.split("/")
+        with h5py.File(self._path_h5, "a") as file_h5:
+            path_dir = ""
+            for dir_index in range(0, len(path_split) - 1):
+                path_dir += path_split[dir_index] + "/"
+                file_h5.require_group(path_dir[:-1])
+            file_h5[path_dir].attrs[path_split[-1]] = value
+            if units is not None:
+                file_h5[path_dir].attrs[path_split[-1] + "_units"] = units
+        if self._is_verbose:
+            print("Value written to hdf5 path", path_full)
 
 
 class Printer:

@@ -2,7 +2,7 @@ from pogger import Pogger
 import numpy as np
 from matplotlib import pyplot as plt
 
-pogger = Pogger()
+pogger = Pogger(verbose=True)
 
 
 @pogger.record(("arange", "string"), ("T", None))
@@ -12,7 +12,6 @@ def test():
     plt.plot(-test)
     plt.draw()
     print("LMAOOOOO")
-    raise Exception("RIP")
     return test, "hello"
 
 
