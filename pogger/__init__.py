@@ -9,7 +9,9 @@ from matplotlib import pyplot as plt
 
 
 class Pogger():
-    def __init__(self, pogger_path=None, verbose=False):
+    def __init__(
+            self, project_name="default", pogger_path=None, verbose=False):
+        self._project_name = project_name
         self._is_verbose = verbose
         self._path = pogger_path
         self._initialise_context()
@@ -46,7 +48,7 @@ class Pogger():
 
         # Script name
         self._python_name = __name__
-        self._path += self._python_name + "/"
+        self._path += self._project_name + "/"
 
         # Timestamp
         self._datetime = dt.datetime.now()
@@ -60,7 +62,7 @@ class Pogger():
         )
         self._path_dir = self._path + self._datetime_path
         self._path_full = self._path_dir \
-            + self._datetime_string + "_" + self._python_name
+            + self._datetime_string + "_" + self._project_name
         if not os.path.exists(self._path_dir):
             os.makedirs(self._path_dir)
 
@@ -125,7 +127,7 @@ class Pogger():
         if not os.path.exists(self._figure_path_dir):
             os.makedirs(self._figure_path_dir)
         self._figure_path = self._figure_path_dir \
-            + self._datetime_string + "_" + self._python_name + "_"
+            + self._datetime_string + "_" + self._project_name + "_"
 
         self._plotted_figures = []
 
