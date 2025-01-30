@@ -158,7 +158,7 @@ class Pogger():
         path_split = path_full.split("/")
         with h5py.File(self._path_h5, "a") as file_h5:
             path_dir = ""
-            for dir_index in range(1, len(path_split) - 1):
+            for dir_index in range(0, len(path_split) - 1):
                 path_dir += path_split[dir_index] + "/"
                 file_h5.require_group(path_dir[:-1])
 
