@@ -408,6 +408,8 @@ class Read:
         if self._path is None:
             self._path = _get_path_from_config()
 
+        self._path += self._project_name + "/"
+
         self._datetime_string = datetime
         self._get_datetime_from_string()
 
