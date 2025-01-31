@@ -408,13 +408,18 @@ class Read:
         if self._path is None:
             self._path = _get_path_from_config()
 
-        self._datetime = datetime
+        self._datetime_string = datetime
+        self._datetime = self._get_datetime_from_string()
 
         self._datetime_string, self._datetime_path, \
             self._path_dir, self._path_full = \
             _get_datetime_paths(self._project_name, self._datetime, self._path)
 
         self._path_h5 = self._path_full + ".h5"
+
+    def _get_datetime_from_string(self):
+        self._datetime = dt.datetime.strptime(
+            self._datetime_string, _DATETIME_FORMAT_STRING)
 
     def read_array(self, name: str, context: str = None):
         """

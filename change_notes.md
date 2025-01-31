@@ -6,5 +6,9 @@
 
 #### v0.1.4
 
-- Added docstrings
-- Added Read class to read output
+- Read reads datetime from a string.
+
+#### v0.1.4
+
+- Added docstrings.
+- Added Read class to read output.
