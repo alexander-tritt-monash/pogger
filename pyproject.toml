@@ -6,6 +6,7 @@ authors = [
     {name = "Alexander Tritt Monash",email = "alexander.tritt@monash.edu"}
 ]
 license = {text = "3-clause BSD"}
+requires-python = ">=3"
 dependencies = [
 	"h5py",
 	"numpy",
