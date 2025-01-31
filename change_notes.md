@@ -4,7 +4,11 @@
 
 ### v0.1
 
-#### v0.1.4
+#### v0.1.6
+
+- Bugfix
+
+#### v0.1.5
 
 - Read reads datetime from a string.
 

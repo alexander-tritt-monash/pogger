@@ -409,7 +409,7 @@ class Read:
             self._path = _get_path_from_config()
 
         self._datetime_string = datetime
-        self._datetime = self._get_datetime_from_string()
+        self._get_datetime_from_string()
 
         self._datetime_string, self._datetime_path, \
             self._path_dir, self._path_full = \
