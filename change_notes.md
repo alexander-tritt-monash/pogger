@@ -4,6 +4,10 @@
 
 ### v0.1
 
+#### v0.1.8 2025-01-31
+
+- Context initialisation bugfix
+
 #### v0.1.7 2025-01-31
 
 - Read bugfix

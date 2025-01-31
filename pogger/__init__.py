@@ -281,7 +281,8 @@ class Pogger():
 
         if context is None:
             self._context = ""
-        self._context = context
+        else:
+            self._context = context
 
     def get_context(self):
         """
