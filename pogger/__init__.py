@@ -139,6 +139,15 @@ class Pogger():
         if self._is_verbose:
             print("Logging initialised")
 
+    def __enter__(self):
+        pass
+
+    def exit(self):
+        self._exit_printer()
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        self.exit()
+
     def _initialise_paths(self):
         if self._path is None:
             self._path = _get_path_from_config()
@@ -264,6 +273,11 @@ class Pogger():
         self._printer = Printer(self._normal_out, self._log_out_path)
         sys.stdout = self._printer
         sys.stderr = self._printer
+
+    def _exit_printer(self):
+        sys.stdout = self._normal_out
+        sys.stderr = self._normal_error_out
+        self._printer = None
 
     def set_context(self, context=None):
         """
