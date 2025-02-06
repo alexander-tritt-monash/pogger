@@ -139,8 +139,9 @@ class Pogger():
         if self._is_verbose:
             print("Logging initialised")
 
-    def __enter__(self):
-        pass
+    def __enter__(
+            self, project_name="default", pogger_path=None, verbose=False):
+        return Pogger(project_name, pogger_path, verbose)
 
     def exit(self):
         self._exit_printer()
