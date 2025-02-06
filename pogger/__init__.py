@@ -11,6 +11,19 @@ _DATETIME_FORMAT_STRING = "%Y-%m-%dT%H-%M-%S"
 _DATETIME_FORMAT_PATH = "%Y/%m/%d/%H-%M-%S/"
 
 
+def _get_pip_freeze():
+    """
+    Based on https://stackoverflow.com/a/31304042
+    """
+
+    try:
+        from pip._internal.operations import freeze
+    except ImportError:
+        from pip.operations import freeze
+
+    return list(freeze.freeze())
+
+
 def _get_path_from_config():
     path = None
     config_path_dir = os.path.expanduser("~")
@@ -261,8 +274,13 @@ class Pogger():
 
     def _initialise_h5(self):
         self._path_h5 = self._path_full + ".h5"
-        with h5py.File(self._path_h5, "w"):
-            pass
+
+        self._pip_freeze = _get_pip_freeze()
+
+        with h5py.File(self._path_h5, "w") as file_h5:
+            group_metadata = file_h5.require_group("metadata")
+            group_metadata["pip_freeze"] = np.array(
+                self._pip_freeze, dtype=object)
 
     def _initialise_context(self):
         self.set_context()
