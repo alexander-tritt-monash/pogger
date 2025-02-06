@@ -1,6 +1,6 @@
 [project]
 name = "pogger"
-version = "0.1.10"
+version = "0.1.11"
 description = "A decorator to simply log/archive results of scientific python code."
 authors = [
     {name = "Alexander Tritt Monash",email = "alexander.tritt@monash.edu"}

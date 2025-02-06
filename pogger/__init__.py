@@ -141,7 +141,7 @@ class Pogger():
 
     def __enter__(
             self, project_name="default", pogger_path=None, verbose=False):
-        return Pogger(project_name, pogger_path, verbose)
+        return self
 
     def exit(self):
         self._exit_printer()

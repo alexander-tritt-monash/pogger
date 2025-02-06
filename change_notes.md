@@ -4,6 +4,10 @@
 
 ### v0.1
 
+#### v0.1.11 2025-02-06
+
+- Context management bugfix
+
 #### v0.1.10 2025-02-06
 
 - Context management bugfix
