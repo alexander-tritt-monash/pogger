@@ -4,6 +4,10 @@
 
 ### v0.1
 
+#### v0.1.14 2025-02-10
+
+- Nested writing to dictionaries
+
 #### v0.1.13 2025-02-10
 
 - Added writing to dictionaries

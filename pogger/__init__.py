@@ -220,11 +220,12 @@ class Pogger():
                         result_unit_value
                     )
             elif type(result) is dict:
-                for result_name_value, result_value in result.items():
+                for result_name_sub, result_value in result.items():
+                    result_name_value = result_name + "/" + result_name_sub
                     if result_unit is None:
                         result_unit_value = None
                     elif type(result_unit) is dict:
-                        result_unit_value = result_unit[result_name_value]
+                        result_unit_value = result_unit[result_name_sub]
                     else:
                         result_unit_value = result_unit
 

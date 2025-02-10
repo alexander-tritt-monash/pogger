@@ -12,7 +12,7 @@ def test():
     plt.plot(-test)
     plt.draw()
     print("LMAOOOOO")
-    dictionary = {"hello": "world", "this is": "me"}
+    dictionary = {"hello": "world", "this": {"is": "me"}}
     return test, "hello", dictionary
 
 
