@@ -4,6 +4,10 @@
 
 ### v0.1
 
+#### v0.1.13 2025-02-10
+
+- Added writing to dictionaries
+
 #### v0.1.12 2025-02-06
 
 - Added pip freeze

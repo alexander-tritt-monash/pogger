@@ -219,6 +219,20 @@ class Pogger():
                         result_name_value,
                         result_unit_value
                     )
+            elif type(result) is dict:
+                for result_name_value, result_value in result.items():
+                    if result_unit is None:
+                        result_unit_value = None
+                    elif type(result_unit) is dict:
+                        result_unit_value = result_unit[result_name_value]
+                    else:
+                        result_unit_value = result_unit
+
+                    write_result(
+                        result_value,
+                        result_name_value,
+                        result_unit_value
+                    )
             elif isinstance(result, np.ndarray):
                 self.write_array(result_name, result, result_unit)
             else:
