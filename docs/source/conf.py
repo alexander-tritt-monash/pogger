@@ -12,7 +12,7 @@ import sys
 project = "pogger"
 copyright = "2025, Alex Tritt"
 author = "Alex Tritt"
-release = "0.0.14"
+release = "0.1.14"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

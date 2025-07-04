@@ -161,6 +161,10 @@ class Pogger():
         return self
 
     def exit(self):
+        """
+        Stop using Pogger class and clean up.
+        """
+
         self._exit_printer()
 
     def __exit__(self, exc_type, exc_value, exc_tb):
