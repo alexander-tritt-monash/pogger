@@ -1,0 +1,7 @@
+numpy
+matplotlib
+h5py
+
+poetry
+sphinx
+sphinx_rtd_theme
