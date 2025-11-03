@@ -4,6 +4,10 @@
 
 ### v0.1
 
+#### v0.1.15 2025-11-03
+
+- Added pip as a dependency (required when installed with uv rather than pip)
+
 #### v0.1.14 2025-02-10
 
 - Nested writing to dictionaries

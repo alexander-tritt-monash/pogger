@@ -1,6 +1,6 @@
 [project]
 name = "pogger"
-version = "0.1.14"
+version = "0.1.15"
 description = "A decorator to simply log/archive results of scientific python code."
 authors = [
     {name = "Alexander Tritt Monash",email = "alexander.tritt@monash.edu"}
@@ -10,7 +10,8 @@ requires-python = ">=3"
 dependencies = [
 	"h5py",
 	"numpy",
-	"matplotlib"
+	"matplotlib",
+	"pip"
 ]
 
 
